@@ -1,0 +1,48 @@
+* Municipal open data
+
+This repository contains code to conduct the analysis for our
+municipal open data project.
+
+** Contents
+- slurpsocrata.sh and dsg_tables.txt :: are used for fetching CSV data
+     from the http://data.seattle.gov portal
+- modr :: R package containing various functions for loading data into
+          a database, as well as for constructing edgelists from
+          datasets.
+
+** Requirements
+- R :: Think we depend on the latest one here
+- dplyr :: fetched from Hadley's repository using
+           devtools::install_github() (see
+           https://github.com/hadley/dplyr) for details.
+- plyr :: fetch from CRAN
+- RSocrata :: Might need to =install.github("pschmied/RSocrata")=
+- RPostgreSQL :: fetch from CRAN
+- magrittr :: CRAN version should be sufficient
+- igraph :: if you want to do anything graph wise
+- modr :: This package! =install.github("pschmied/mod/code/modr")=,
+          modulo some authentication perhaps?
+- Postgres :: On Mac, I installed via homebrew (http://brew.sh).
+- Postgres loaded with mod data :: for convenience, I've got a pgdump
+     file up on Dropbox
+     (https://www.dropbox.com/s/zl8jjk9lfjxhdz8/mod.pg.gz?dl=0)
+
+
+
+
+** Instructions
+From R probably easiest to start by loading the modr (assuming it's
+already installed here) and checking out the examples in the
+documentation.
+
+#+BEGIN_SRC R
+  library(modr)
+  library(igraph)
+
+  help(edge.attrs)
+#+END_SRC
+
+
+
+
+
