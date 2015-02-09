@@ -26,7 +26,7 @@ function
 }
 \examples{
 foo.db <- src_postgres("foo")
-attrs <- ls.attrs(foo.db)
+attrs <- ls.attr(foo.db)
 
 res.grep <- edge.attrs(attrs, fn=intersect.grep)
 res.token <- edge.attrs(attrs, fn=intersect.token)

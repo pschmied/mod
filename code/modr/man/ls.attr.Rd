@@ -19,6 +19,6 @@ Function lists the attributes of one or more tables
 }
 \examples{
 foo.db <- src_postgres("foo")
-attrs <- ls.attrs(foo.db)
+attrs <- ls.attr(foo.db)
 }
 
