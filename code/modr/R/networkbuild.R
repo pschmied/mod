@@ -93,6 +93,7 @@ intersect.innerjoin <- function(xs, ys, xtab, ytab, db, threshold=1, ...) {
     com <- expand.grid(xs, ys, stringsAsFactors=FALSE)
     xt <- tbl(db, xtab)               # Convert table names to handles
     yt <- tbl(db, ytab)
+    print(paste("joining", xtab, "and", ytab))
     fn <- function(x, y) {
         j <- try(inner_join(xt, yt, setNames(x, y)), silent=TRUE)
         if(class(j)[1] != "try-error") {
