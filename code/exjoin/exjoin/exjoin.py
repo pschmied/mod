@@ -28,7 +28,7 @@ def cjoin(pathstuple):
 def main():
     parser = argparse.ArgumentParser(description="Exhaustively join set of csv files")
     parser.add_argument("csvpath", help="path to csv files to join")
-    parser.add_argument("-w", "--workers", help="number of worker processes to spawn", default=2)
+    parser.add_argument("-w", "--workers", help="number of worker processes to spawn", default=2, type=int)
     args = parser.parse_args()
 
     p = Pool(args.workers)
