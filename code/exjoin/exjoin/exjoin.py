@@ -1,6 +1,6 @@
 import pandas as pd
 import gc, os, argparse, sys
-from itertools import product, combinations
+from itertools import product, combinations, izip
 from glob import glob
 from multiprocessing import Pool, Lock
 
@@ -18,9 +18,10 @@ def cjoin(pathstuple):
     cols = product(s0, s1)
     names = product(d0.columns, d1.columns)
     res = []
-    for c,n in zip(cols, names):
+    for c,n in izip(cols, names):
         l = len(c[0].intersection(c[1]))
-        res.append("{}\t{}\t{}\t{}\t{}\n".format(pathstuple[0], n[0], pathstuple[1], n[1], l))
+        if l > 0:
+            res.append("{},{},{},{},{}\n".format(pathstuple[0], n[0], pathstuple[1], n[1], l))
         gc.collect()
     for x in res:
         output(x)
