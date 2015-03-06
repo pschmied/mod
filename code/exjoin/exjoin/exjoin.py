@@ -6,10 +6,6 @@ from multiprocessing import Pool, Lock
 
 lock = Lock()
 
-def output(res):
-    with lock:
-        sys.stdout.write(res)
-
 def cjoin(pathstuple):
     d0 = pd.read_csv(pathstuple[0], low_memory=False)
     d1 = pd.read_csv(pathstuple[1], low_memory=False)
@@ -21,10 +17,11 @@ def cjoin(pathstuple):
     for c,n in izip(cols, names):
         l = len(c[0].intersection(c[1]))
         if l > 0:
-            res.append("{},{},{},{},{}\n".format(pathstuple[0], n[0], pathstuple[1], n[1], l))
+            res.append('"{}","{}","{}","{}",{}'.(pathstuple[0], n[0], pathstuple[1], n[1], l))
         gc.collect()
-    for x in res:
-        output(x)
+    with lock:
+        for x in res:
+            print x
             
 def main():
     parser = argparse.ArgumentParser(description="Exhaustively join set of csv files")
@@ -32,10 +29,12 @@ def main():
     parser.add_argument("-w", "--workers", help="number of worker processes to spawn", default=2, type=int)
     args = parser.parse_args()
 
-    p = Pool(args.workers)
     filelist = glob(os.path.join(args.csvpath, "*.csv"))
     pathstuple = combinations(filelist, 2)
+
+    p = Pool(args.workers)
     p.map(cjoin, pathstuple)
+
 
 if __name__ == '__main__':
     main()
