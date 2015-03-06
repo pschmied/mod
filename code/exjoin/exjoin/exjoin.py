@@ -17,11 +17,12 @@ def cjoin(pathstuple):
     for c,n in izip(cols, names):
         l = len(c[0].intersection(c[1]))
         if l > 0:
-            res.append('"{}","{}","{}","{}",{}'.(pathstuple[0], n[0], pathstuple[1], n[1], l))
+            res.append('"{}","{}","{}","{}",{}\n'.format(pathstuple[0], n[0], pathstuple[1], n[1], l))
         gc.collect()
     with lock:
         for x in res:
-            print x
+            sys.stdout.flush()
+            sys.stdout.write(x)
             
 def main():
     parser = argparse.ArgumentParser(description="Exhaustively join set of csv files")
@@ -34,6 +35,8 @@ def main():
 
     p = Pool(args.workers)
     p.map(cjoin, pathstuple)
+    p.close()
+    p.join()
 
 
 if __name__ == '__main__':
