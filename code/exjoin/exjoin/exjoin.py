@@ -15,9 +15,11 @@ def cjoin(pathstuple):
     names = product(d0.columns, d1.columns)
     res = []
     for c,n in izip(cols, names):
-        l = len(c[0].intersection(c[1]))
+        isect = c[0].intersection(c[1])
+        l = len(isect)
+        h = list(isect)[0:4]
         if l > 0:
-            res.append('"{}","{}","{}","{}",{}\n'.format(pathstuple[0], n[0], pathstuple[1], n[1], l))
+            res.append('"{}","{}","{}","{}",{},"{}"\n'.format(pathstuple[0], n[0], pathstuple[1], n[1], l, h))
         gc.collect()
     with lock:
         for x in res:
