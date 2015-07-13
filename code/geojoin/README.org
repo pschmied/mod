@@ -1,0 +1,11 @@
+* Make comparisons across datasets containing geometric data
+Initial version only compares point geometries in a sane
+way. Comparisons are made between PostGIS tables containing columns
+containing geometries.
+
+Script allows for some sensitivity analysis based on distance between
+points, as few points would be expected to match perfectly. Matches
+are instead based on a distance threshold (i.e. a match would occur
+when a point is within X units of distance of a point in a
+corresponding table).
+
